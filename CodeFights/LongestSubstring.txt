@@ -1,0 +1,14 @@
+Test Cases:
+a = pewpew
+b = pewpbap
+
+Receive a string and return the longest substring without repeating characters.
+
+p e w p e w 
+^
+i
+j = BaseString
+
+0
+
+i = 0 - + p
