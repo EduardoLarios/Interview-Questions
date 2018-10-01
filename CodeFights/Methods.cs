@@ -5,14 +5,23 @@ using System.Linq;
 using System.Text;
 
 namespace CodeFights {
-    
-    class ListNode<T> {
-      public T value { get; set; }
-      public ListNode<T> next { get; set; }
+
+    public class ListNode<T> {
+        public T value { get; set; }
+        public ListNode<T> next { get; set; }
     }
     public static class Methods {
-        public static ListNode<int> RemoveKFromList (ListNode<int> list, int val) {
-            return list;
+        public static ListNode<int> RemoveValFromList (ListNode<int> head, int val) {
+            if (head == null) return null;
+            if (head.value == val) return RemoveValFromList (head.next, val);
+            head.next = RemoveValFromList (head.next, val);
+            return head;
+        }
+
+        public static bool IsListPalindrome (ListNode<int> list) {
+            if (list == null) return false;
+
+            return false;
         }
 
         public static int[][] RotateImage (int[][] matrix) {
@@ -127,8 +136,8 @@ namespace CodeFights {
                         }
 
                         tempLongest.Clear ();
-                        // System.Console.WriteLine("List: {0}", tempLongest.ToString());
-                        // System.Console.WriteLine("Cleared List - Skipping Iteration\n");
+                        // System.Console.WriteLine("head: {0}", tempLongest.ToString());
+                        // System.Console.WriteLine("Cleared head - Skipping Iteration\n");
                         break;
                     } else {
                         // System.Console.WriteLine("Current char: {0} - ADDED -", BaseString[j]);

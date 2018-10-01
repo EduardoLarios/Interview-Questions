@@ -1,0 +1,21 @@
+// [ 1, 2, 3, 4 ] => [ 4, 3, 2, 1 ]
+// Time: O(n), Mem: O(1); recursive
+
+struct List<T> {
+  T Head { get; private set; }
+  List<T> Tail { get; set; }
+}
+
+List<T> Reverse(List<T> list) {                                       // (a (b (C nil)))  |  (b (c nil))  | (c nil)
+
+	if (list == null || list.Tail == null) return list;               // => (c nil)
+
+	List<T> prev = Reverse(list.Tail);                                // (c (b nil))      |  (c nil)
+	List<T> last = prev;                                              // (c (b nil))      |  (c nil)
+
+	while (last.Tail != null) last = last.Tail;                       // (b nil)
+	list.Tail = null;                                                 // (a nil)          |  (b nil)
+	last.Tail = list;                                                 // (b (a nil))      |  (c (b nil))
+
+	return prev;                                                      // (c (b (a nil)))  |  (c (b nil))
+}
