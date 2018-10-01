@@ -1,0 +1,41 @@
+/* Tip #1: En recursion, recuerda todo tu contexto'-> aka Pass all your for variables, as if iterating
+ * Tip #2: En recursion, siempre considera tu caso base -> Always do your base cases first, unless you like stack overflows
+ * */
+  
+struct Node<T> {
+  T Value { get; private set; }
+  Node<T> Next { get; set; }
+}
+
+// [ 1, 2, 3, 4 ] => [ 4, 3, 2, 1 ]
+// Time: O(n), Mem: O(1); recursive
+// Meme stuff
+
+null <- 1 <- 2 <- 3 <- 4
+  return 4
+  return 3
+  return 2
+  return 1
+  
+Node<T> Reverse(Node<T> node)
+{
+  if (node == null || node.Next == null) { return node; }
+  var aux = node.Next;
+  Reverse(aux).Next = node;
+  node.Next = null;
+  return node;
+}
+
+// Luigi Stuff
+List<T> Reverse(List<T> list) {                                     // (a (b (C nil)))  |  (b (c nil))  | (c nil)
+	if (list == null || list.Tail == null) return list;               // => (c nil)
+
+	List<T> prev = Reverse(list.Tail);                                // (c (b nil))      |  (c nil)
+	List<T> last = prev;                                              // (c (b nil))      |  (c nil)
+
+	while (last.Tail != null) last = last.Tail;                       // (b nil)
+	list.Tail = null;                                                 // (a nil)          |  (b nil)
+	last.Tail = list;                                                 // (b (a nil))      |  (c (b nil))
+
+	return prev;                                                      // (c (b (a nil)))  |  (c (b nil))
+}
