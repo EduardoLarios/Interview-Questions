@@ -24,11 +24,68 @@ namespace CodeFights
             return head;
         }
 
+        public static ListNode<int> Invert (ListNode<int> head)
+        {
+            //{3, 1, 2, 4, 5};
+            if (head == null || head.next == null) return head;
+            ListNode<int> prev = null;
+            var next = head.next;
+
+            while (head != null)
+            {
+                next = head.next;
+                head.next = prev;
+                prev = head;
+                head = next;
+            }
+
+            return prev;
+        }
+        
         public static bool IsListPalindrome (ListNode<int> list)
         {
-            if (list == null) return false;
+            // {3, 1, 2, 4};
+            if (list == null || list.next == null) return true;
+
+            ListNode<int> left = list;
+            ListNode<int> right = list;
+            ListNode<int> mid = FindMidNode (list);
+
+            Console.WriteLine (mid.value);
 
             return false;
+        }
+
+        public static ListNode<int> FindMidNode (ListNode<int> list)
+        {
+            if (list == null || list.next == null) return list;
+            ListNode<int> slow = list;
+            ListNode<int> fast = list;
+
+            while (fast.next != null)
+            {
+                if (fast.next.next == null)
+                {
+                    return slow;
+                }
+                slow = slow.next;
+                fast = fast.next.next;
+            }
+
+            return list;
+        }
+
+        public static bool CompareLists (ListNode<int> fist, ListNode<int> second)
+        {
+            // Compare elements of first and second up to the length of the shorter
+            // Return false if any elements are different
+            while (fist != null && second != null)
+            {
+                if (fist.value != second.value) return false;
+                fist = fist.next;
+                second = second.next;
+            }
+            return true;
         }
 
         public static int[][] RotateImage (int[][] matrix)
