@@ -19,6 +19,7 @@ namespace CodeFights {
             }
             
             var ans = Methods.Invert(start);
+            Methods.ReverseInPlace(ref ans);
 
             // while (ans != null)
             // {
@@ -26,8 +27,8 @@ namespace CodeFights {
             //     ans = ans.next;
             // }
 
-            var palindrome = Methods.IsListPalindrome(ans);
-            Console.WriteLine(palindrome);
+            // var palindrome = Methods.IsListPalindrome(ans);
+            // Console.WriteLine(palindrome);
             
             // var ans = Methods.IsListPalindrome(start);
             // Console.WriteLine(ans);

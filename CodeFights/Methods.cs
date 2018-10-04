@@ -41,7 +41,28 @@ namespace CodeFights
 
             return prev;
         }
-        
+
+        public static void ReverseInPlace (ref ListNode<int> list)
+        {
+            // Reverse a linked list in place, with head at list
+            // Return new head pointing to reversed list
+            ListNode<int> head = list;
+            ListNode<int> next = list.next;
+            ListNode<int> tmp = null;
+
+            head.next = null;
+
+            while (next != null)
+            {
+                tmp = next.next;
+                next.next = head;
+                head = next;
+                next = tmp;
+            }
+
+            list = head;
+        }
+
         public static bool IsListPalindrome (ListNode<int> list)
         {
             // {3, 1, 2, 4};
