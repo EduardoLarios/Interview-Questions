@@ -6,15 +6,43 @@ using System.Text;
 
 namespace CodeFights
 {
-
+    // Definition for linked list:
     public class ListNode<T>
     {
         public T value { get; set; }
         public ListNode<T> next { get; set; }
     }
 
+    // Definition for binary tree:
+    public class Tree<T>
+    {
+        public T value { get; set; }
+        public Tree<T> left { get; set; }
+        public Tree<T> right { get; set; }
+    }
+
     public static class Methods
     {
+
+        public static bool HasPathWithGivenSum (Tree<int> t, int s)
+        {
+            if (t == null) return false;
+
+            var subSum = s - t.value;
+            if (subSum == 0 && t.left == null && t.right == null)
+            {
+                return true;
+            }
+
+            var ans = false;
+            if (t.left != null)
+                ans = ans || HasPathWithGivenSum (t.left, subSum);
+            if (t.right != null)
+                ans = ans || HasPathWithGivenSum (t.right, subSum);
+
+            return ans;
+
+        }
 
         public static ListNode<int> RemoveValFromList (ListNode<int> head, int val)
         {
@@ -142,15 +170,11 @@ namespace CodeFights
             for (var i = 0; i < str.Length; i++)
             {
                 if (found.ContainsKey (str[i]))
-                {
                     //Console.WriteLine("Key Found:");
                     found[str[i]] += 1;
-                }
                 else
-                {
                     //Console.WriteLine("Key Not Found:");
                     found.Add (str[i], 1);
-                }
             }
 
             if (found.ContainsValue (1))
@@ -172,7 +196,7 @@ namespace CodeFights
                 if (sequence[i] >= sequence[i + 1])
                 {
                     //Console.WriteLine ("Inside");
-                    Console.WriteLine (sequence[i] + " is bigger or equal to " + sequence[i + 1]);
+                    //Console.WriteLine (sequence[i] + " is bigger or equal to " + sequence[i + 1]);
                     counter++;
                     //Console.WriteLine ("Counter: " + counter);
                 }
@@ -180,7 +204,7 @@ namespace CodeFights
                 if (i + 2 < sequence.Length && sequence[i] >= sequence[i + 2])
                 {
                     //Console.WriteLine ("Weird case");
-                    Console.WriteLine (sequence[i] + " bigger or equal to " + sequence[i + 2]);
+                    //Console.WriteLine (sequence[i] + " bigger or equal to " + sequence[i + 2]);
                     counter++;
                     //System.Console.WriteLine ("Counter: " + counter);
                 }
@@ -198,9 +222,7 @@ namespace CodeFights
             for (var i = 0; i < len; i++)
             {
                 if (found.ContainsKey (array[i]))
-                {
                     return array[i];
-                }
                 else
                     found.Add (array[i], true);
             }
@@ -222,31 +244,20 @@ namespace CodeFights
                     if (tempLongest.ToString ().Contains (BaseString[j].ToString ()))
                     {
                         // System.Console.WriteLine("Current char: {0} - NOT ADDED -", BaseString[j]);
-                        // System.Console.WriteLine("i: {0}\nj: {1}\n", i, j);
-
-                        // System.Console.WriteLine("Temp: {0}\tLength: {1}", tempLongest.ToString(), tempLongest.ToString().Length);
-                        // System.Console.WriteLine("Current: {0}\tLength: {1}", currentLongest.ToString(), currentLongest.ToString().Length);
-
                         if (tempLongest.ToString ().Length > currentLongest.ToString ().Length)
                         {
                             currentLongest.Clear ();
                             currentLongest.Append (tempLongest);
-                            //System.Console.WriteLine("Saved Current Longest: {0}\n", currentLongest.ToString());
                         }
 
                         tempLongest.Clear ();
-                        // System.Console.WriteLine("head: {0}", tempLongest.ToString());
                         // System.Console.WriteLine("Cleared head - Skipping Iteration\n");
                         break;
                     }
                     else
                     {
                         // System.Console.WriteLine("Current char: {0} - ADDED -", BaseString[j]);
-                        // System.Console.WriteLine("i: {0}\nj: {1}\n", i, j);
                         tempLongest.Append (BaseString[j]);
-                        // System.Console.WriteLine("Added: {0} to [{1}]\n", BaseString[j], tempLongest.ToString());
-                        // System.Console.WriteLine("Current Longest: {0}\tLength: {1}", currentLongest.ToString(), currentLongest.ToString().Length);
-                        // System.Console.WriteLine("Temp Longest: {0}\tLength: {1}", tempLongest.ToString(), tempLongest.ToString().Length);
                     }
                 }
             }
