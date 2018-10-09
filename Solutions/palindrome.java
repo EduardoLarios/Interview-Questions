@@ -9,12 +9,12 @@
 //
 //
 
-ListNode left;
+ListNode<Integer> left;
+ListNode<Integer> prev;
 
-
-boolean isListPalindrome(ListNode<Integer> l) {
-    left = l;
-    boolean result = compareLeftRight(l);
+boolean isListPalindrome(ListNode<Integer> list) {
+    left = list;
+    boolean result = compareLeftRight(list);
     
     return result;
 }
@@ -22,19 +22,12 @@ boolean isListPalindrome(ListNode<Integer> l) {
 
 public boolean compareLeftRight(ListNode right){
 
-    if (right == null){
-        return true;
-    }
+    if (right == null) return true;
     
     if (!compareLeftRight(right.next)) return false;
     
-    if((left.value).equals((right.value)) left = left.next;
+    prev = left;
+    left = left.next;
 
-    return (left.value).equals((right.value);
-
-    // boolean y = ((left.value).equals((right.value)));
-
-    // left = left.next;
-
-    //return y;
+    return ((prev.value).equals((right.value)));
 }

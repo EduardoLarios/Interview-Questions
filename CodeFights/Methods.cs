@@ -23,8 +23,50 @@ namespace CodeFights
 
     public static class Methods
     {
+        public static string LongestSubstringNew(string word)
+        {
+            if (word.Length < 2) return word;
+            string maxLongest = "";
+            var currentLongest = new StringBuilder();
+            var ocurrences = new Dictionary<char, int>();
 
-        public static bool HasPathWithGivenSum (Tree<int> t, int s)
+            for (int i = 0; i < word.Length; i++)
+            {
+                if (!ocurrences.ContainsKey(word[i]))
+                {
+                    ocurrences.Add(word[i], i);
+                    currentLongest.Append(word[i]);
+                }
+
+                else
+                {
+                    i = ocurrences[word[i]];
+                    ocurrences.Clear();
+
+                    if (currentLongest.ToString().Length > maxLongest.Length)
+                    {
+                        maxLongest = currentLongest.ToString();
+                    }
+
+                    currentLongest.Clear();
+                }
+            }
+
+            if (currentLongest.ToString().Length > maxLongest.Length)
+            {
+                maxLongest = currentLongest.ToString();
+                currentLongest.Clear();
+            }
+
+            return maxLongest;
+
+        }
+        public static int[] FirstThree(this int[] a)
+        {
+            return a.Take(3).ToArray();
+        }
+
+        public static bool HasPathWithGivenSum(Tree<int> t, int s)
         {
             if (t == null) return false;
 
@@ -36,23 +78,23 @@ namespace CodeFights
 
             var ans = false;
             if (t.left != null)
-                ans = ans || HasPathWithGivenSum (t.left, subSum);
+                ans = ans || HasPathWithGivenSum(t.left, subSum);
             if (t.right != null)
-                ans = ans || HasPathWithGivenSum (t.right, subSum);
+                ans = ans || HasPathWithGivenSum(t.right, subSum);
 
             return ans;
 
         }
 
-        public static ListNode<int> RemoveValFromList (ListNode<int> head, int val)
+        public static ListNode<int> RemoveValFromList(ListNode<int> head, int val)
         {
             if (head == null) return null;
-            if (head.value == val) return RemoveValFromList (head.next, val);
-            head.next = RemoveValFromList (head.next, val);
+            if (head.value == val) return RemoveValFromList(head.next, val);
+            head.next = RemoveValFromList(head.next, val);
             return head;
         }
 
-        public static ListNode<int> Invert (ListNode<int> head)
+        public static ListNode<int> Invert(ListNode<int> head)
         {
             //{3, 1, 2, 4, 5};
             if (head == null || head.next == null) return head;
@@ -70,7 +112,7 @@ namespace CodeFights
             return prev;
         }
 
-        public static void ReverseInPlace (ref ListNode<int> list)
+        public static void ReverseInPlace(ref ListNode<int> list)
         {
             // Reverse a linked list in place, with head at list
             // Return new head pointing to reversed list
@@ -91,21 +133,21 @@ namespace CodeFights
             list = head;
         }
 
-        public static bool IsListPalindrome (ListNode<int> list)
+        public static bool IsListPalindrome(ListNode<int> list)
         {
             // {3, 1, 2, 4};
             if (list == null || list.next == null) return true;
 
             ListNode<int> left = list;
             ListNode<int> right = list;
-            ListNode<int> mid = FindMidNode (list);
+            ListNode<int> mid = FindMidNode(list);
 
-            Console.WriteLine (mid.value);
+            Console.WriteLine(mid.value);
 
             return false;
         }
 
-        public static ListNode<int> FindMidNode (ListNode<int> list)
+        public static ListNode<int> FindMidNode(ListNode<int> list)
         {
             if (list == null || list.next == null) return list;
             ListNode<int> slow = list;
@@ -124,7 +166,7 @@ namespace CodeFights
             return list;
         }
 
-        public static bool CompareLists (ListNode<int> fist, ListNode<int> second)
+        public static bool CompareLists(ListNode<int> fist, ListNode<int> second)
         {
             // Compare elements of first and second up to the length of the shorter
             // Return false if any elements are different
@@ -137,7 +179,7 @@ namespace CodeFights
             return true;
         }
 
-        public static int[][] RotateImage (int[][] matrix)
+        public static int[][] RotateImage(int[][] matrix)
         {
             int i;
             int j, col;
@@ -146,7 +188,7 @@ namespace CodeFights
                 return matrix;
 
             var input = matrix;
-            var output = new int[matrix.GetLength (0)][];
+            var output = new int[matrix.GetLength(0)][];
 
             for (i = 0; i < output.Length; i++)
             {
@@ -164,29 +206,29 @@ namespace CodeFights
             return output;
         }
 
-        public static char FirstNonRepeatingCharacter (string str)
+        public static char FirstNonRepeatingCharacter(string str)
         {
-            var found = new Dictionary<char, int> ();
+            var found = new Dictionary<char, int>();
             for (var i = 0; i < str.Length; i++)
             {
-                if (found.ContainsKey (str[i]))
+                if (found.ContainsKey(str[i]))
                     //Console.WriteLine("Key Found:");
                     found[str[i]] += 1;
                 else
                     //Console.WriteLine("Key Not Found:");
-                    found.Add (str[i], 1);
+                    found.Add(str[i], 1);
             }
 
-            if (found.ContainsValue (1))
+            if (found.ContainsValue(1))
             {
-                return found.FirstOrDefault (x => x.Value == 1).Key;
+                return found.FirstOrDefault(x => x.Value == 1).Key;
             }
 
             return '_';
 
         }
 
-        public static bool AlmostIncreasingSequence (int[] sequence)
+        public static bool AlmostIncreasingSequence(int[] sequence)
         {
             var counter = 0;
             if (sequence.Length == 2) { return true; }
@@ -214,26 +256,26 @@ namespace CodeFights
 
         }
 
-        public static int FirstDuplicate (int[] array)
+        public static int FirstDuplicate(int[] array)
         {
             var len = array.Length;
-            var found = new Dictionary<int, bool> ();
+            var found = new Dictionary<int, bool>();
 
             for (var i = 0; i < len; i++)
             {
-                if (found.ContainsKey (array[i]))
+                if (found.ContainsKey(array[i]))
                     return array[i];
                 else
-                    found.Add (array[i], true);
+                    found.Add(array[i], true);
             }
 
             return -1;
         }
 
-        public static string LongestSubstring (string BaseString)
+        public static string LongestSubstring(string BaseString)
         {
-            var currentLongest = new StringBuilder ();
-            var tempLongest = new StringBuilder ();
+            var currentLongest = new StringBuilder();
+            var tempLongest = new StringBuilder();
             var len = BaseString.Length;
 
             for (var i = 0; i < len; i++)
@@ -241,31 +283,31 @@ namespace CodeFights
                 for (var j = i; j < len; j++)
                 {
 
-                    if (tempLongest.ToString ().Contains (BaseString[j].ToString ()))
+                    if (tempLongest.ToString().Contains(BaseString[j].ToString()))
                     {
                         // System.Console.WriteLine("Current char: {0} - NOT ADDED -", BaseString[j]);
-                        if (tempLongest.ToString ().Length > currentLongest.ToString ().Length)
+                        if (tempLongest.ToString().Length > currentLongest.ToString().Length)
                         {
-                            currentLongest.Clear ();
-                            currentLongest.Append (tempLongest);
+                            currentLongest.Clear();
+                            currentLongest.Append(tempLongest);
                         }
 
-                        tempLongest.Clear ();
+                        tempLongest.Clear();
                         // System.Console.WriteLine("Cleared head - Skipping Iteration\n");
                         break;
                     }
                     else
                     {
                         // System.Console.WriteLine("Current char: {0} - ADDED -", BaseString[j]);
-                        tempLongest.Append (BaseString[j]);
+                        tempLongest.Append(BaseString[j]);
                     }
                 }
             }
 
-            return currentLongest.ToString ();
+            return currentLongest.ToString();
         }
 
-        public static int MatrixElementsSum (int[][] matrix)
+        public static int MatrixElementsSum(int[][] matrix)
         {
             //TODO: Fix weird case and change algorithm to check from a blacklist of colums.
             var sum = 0;
@@ -278,14 +320,14 @@ namespace CodeFights
                 {
                     if (i == 0 && matrix[i][j] > 0)
                     {
-                        System.Console.WriteLine ("Added: {0}", matrix[i][j]);
+                        System.Console.WriteLine("Added: {0}", matrix[i][j]);
                         sum += matrix[i][j];
                     }
 
                     if (i > 0 && matrix[i][j] > 0 && matrix[i - 1][j] > 0)
                     {
-                        System.Console.WriteLine ("Added: {0}", matrix[i][j]);
-                        System.Console.WriteLine ("Top: {0}", matrix[i - 1][j]);
+                        System.Console.WriteLine("Added: {0}", matrix[i][j]);
+                        System.Console.WriteLine("Top: {0}", matrix[i - 1][j]);
                         sum += matrix[i][j];
                     }
 
@@ -297,10 +339,10 @@ namespace CodeFights
             return sum;
         }
 
-        public static int MakeConsecutive (int[] statues)
+        public static int MakeConsecutive(int[] statues)
         {
             int i, count = 0;
-            Array.Sort (statues);
+            Array.Sort(statues);
             var len = statues.Length;
 
             for (i = len - 1; i > 0; i--)
@@ -314,7 +356,7 @@ namespace CodeFights
             return count;
         }
 
-        public static int GetCentury (int year)
+        public static int GetCentury(int year)
         {
             if (year % 100 == 0)
             {
@@ -326,7 +368,7 @@ namespace CodeFights
             }
         }
 
-        public static bool CheckPalindrome (string word)
+        public static bool CheckPalindrome(string word)
         {
             var len = word.Length;
             for (var i = 0; i < len - 1; i++)
@@ -344,7 +386,7 @@ namespace CodeFights
             return true;
         }
 
-        public static int AdjacentElements (int[] inputArray)
+        public static int AdjacentElements(int[] inputArray)
         {
             var maxProd = int.MinValue;
             for (var i = 0; i < inputArray.Length - 1; i++)
@@ -358,7 +400,7 @@ namespace CodeFights
             return maxProd;
         }
 
-        public static int ShapeArea (int n)
+        public static int ShapeArea(int n)
         {
             return (n * n) + ((n - 1) * (n - 1));
         }
