@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -23,6 +23,9 @@ namespace CodeFights
 
     public static class Methods
     {
+        // I think I may still be iterating more than N times.
+        // Check if you can delete the previous entries in the list
+        // I think I should retain the previous keys in the dictionary
         public static string LongestSubstringNew(string word)
         {
             if (word.Length < 2) return word;

@@ -20,8 +20,8 @@ namespace CodeFights {
             }
 
             System.Console.WriteLine("Write a word: ");
-            var word = Console.ReadLine();
-            var ans = Methods.LongestSubstringNew(word);
+            //var word = Console.ReadLine();
+            var ans = Methods.LongestSubstringNew("cesarricardo");
             System.Console.WriteLine("Longest: {0}", ans);
 
             // while (ans != null)
