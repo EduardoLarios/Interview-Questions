@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -52,7 +52,7 @@ namespace CodeFights
                 }
             }
 
-            if (currentLongest.ToString().Length > maxLongest.Length)
+            if (currentLongest.Length > maxLongest.Length)
             {
                 maxLongest = currentLongest.ToString();
                 currentLongest.Clear();
